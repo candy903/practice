@@ -7,14 +7,6 @@ var server = require('gulp-webserver');
 var rev = require('gulp-rev');
 var collector = require('gulp-rev-collector');
 
-//起服务
-// gulp.task('devserver', function() {
-//     return gulp.src('src')
-//         .pipe(server({
-//             port: 8080,
-//             livereload: true
-//         }))
-// })
 
 //压缩css
 gulp.task('devscss', function() {
@@ -25,6 +17,7 @@ gulp.task('devscss', function() {
         .pipe(gulp.dest('./src/css'))
 })
 
+//js
 gulp.task('devjs', function() {
     return gulp.src('./src/js/*.js')
         .pipe(concat('all.js'))
@@ -32,9 +25,21 @@ gulp.task('devjs', function() {
         .pipe(gulp.dest('./src/js/minjs'))
 })
 
+//监听
 gulp.task('watch', function() {
     gulp.watch('./src/scss/*.scss', gulp.series('devscss'))
     gulp.watch('./src/js/*.js', gulp.series('devjs'))
 })
 
-// gulp.task('dev', gulp.series('devscss', 'devjs', 'devserver', 'watch'))
+//起服务
+gulp.task('devserver', function() {
+    return gulp.src('src')
+        .pipe(server({
+            port: 8080,
+            open: true,
+            livereload: true
+        }))
+})
+
+//开发环境
+gulp.task('default', gulp.series('devscss', 'devjs', 'devserver', 'watch'))
