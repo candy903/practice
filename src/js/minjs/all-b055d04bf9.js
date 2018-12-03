@@ -1,0 +1,1 @@
+console.log(0);var a=10,b=90,c=80;console.log(1111);

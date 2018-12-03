@@ -22,7 +22,10 @@ gulp.task('devjs', function() {
     return gulp.src('./src/js/*.js')
         .pipe(concat('all.js'))
         .pipe(uglify())
+        .pipe(rev())
         .pipe(gulp.dest('./src/js/minjs'))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('./rev'))
 })
 
 //监听
@@ -41,5 +44,14 @@ gulp.task('devserver', function() {
         }))
 })
 
+//html
+gulp.task('bhtml', function() {
+    return gulp.src(['./rev/*.json', './src/*.html'])
+        .pipe(collector({
+            replaceReved: true
+        }))
+        .pipe(gulp.dest('./src/html'))
+})
+
 //开发环境
-gulp.task('default', gulp.series('devscss', 'devjs', 'devserver', 'watch'))
+gulp.task('default', gulp.series('devscss', 'devjs', 'devserver', 'bhtml', 'watch'))
