@@ -22,11 +22,11 @@ gulp.task('devscss', function() {
         .pipe(gulp.dest('./src/css'))
 })
 
-// gulp.task('devjs', function() {
-//     return gulp.src('./src/js/index.js')
-//         .pipe(uglify())
-//         .pipe(gulp.dest('./src/js/minjs'))
-// })
+gulp.task('devjs', function() {
+    return gulp.src('./src/js/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./src/js/minjs'))
+})
 
 // gulp.task('watch', function() {
 //     return gulp.watch('./src/scss/index.scss', gulp.series('devscss'))
